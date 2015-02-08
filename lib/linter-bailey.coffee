@@ -1,11 +1,40 @@
 linterPath = atom.packages.getLoadedPackage("linter").path
 Linter = require "#{linterPath}/lib/linter"
 bailey = require 'bailey'
+fs = require 'fs'
 
 module.exports =
   class LinterBailey extends Linter
     @syntax: 'source.bs'
     linterName: 'bailey'
-    cmd: 'bailey -v @filename @filename.out'
-    errorStream: 'stderr'
-    regex: 'SyntaxError at .* line (?<line>[0-9]+), character (?<col>[0-9]+):'
+
+    levels:
+      SyntaxError: 'error'
+      ImportError: 'error'
+      StyleError: 'warning'
+
+    formatMessage: (error) ->
+      if error.found
+        return "Found unexpected '#{error.found}'"
+      return error.message
+
+    lintFile: (path, callback) ->
+      messages = []
+      fs.readFile path, (err, data) =>
+        try
+          bailey.parseString(data.toString())
+        catch e
+          if e instanceof bailey.ParserError
+
+            messages.push({
+              level: @levels[e.inner.name],
+              line: e.line,
+              col: e.column,
+              linter: @linterName,
+              message: @formatMessage(e),
+              range: @computeRange({
+                line: e.line,
+                col: e.column,
+              })
+            })
+        callback messages

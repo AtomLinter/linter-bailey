@@ -4,7 +4,7 @@
   "linter-package": true,
   "version": "0.2.1",
   "description": "A short description of your package",
-  "repository": "https://github.com/relekang/linter-bailey",
+  "repository": "https://github.com/AtomLinter/linter-bailey",
   "license": "MIT",
   "engines": {
     "atom": ">0.177.0"

@@ -10,6 +10,10 @@ matrix:
     - os: linux
       env: ATOM_CHANNEL=beta
 
+env:
+  global:
+    APM_TEST_PACKAGES: "language-bailey"      
+
 ### Generic setup follows ###
 script:
   - curl -s -O https://raw.githubusercontent.com/atom/ci/master/build-package.sh

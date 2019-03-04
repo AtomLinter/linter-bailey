@@ -70,8 +70,7 @@
       "atom": true
     },
     "env": {
-      "node": true,
-      "browser": true
+      "node": true
     }
   }
 }

@@ -7,11 +7,36 @@
   "description": "Atom linter plugin for bailey.js",
   "repository": "https://github.com/AtomLinter/linter-bailey",
   "license": "MIT",
+  "activationHooks": [
+    "source.bs:root-scope-used"
+  ],
   "engines": {
-    "atom": ">0.177.0"
+    "atom": ">=1.9.0 <2.0.0"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "test": "apm test"
   },
   "dependencies": {
+    "atom-linter": "10.0.0",
+    "atom-package-deps": "5.0.0",
     "bailey": "0.0.17"
+  },
+  "devDependencies": {
+    "eslint": "5.14.1",
+    "eslint-config-airbnb-base": "13.1.0",
+    "eslint-plugin-import": "2.16.0",
+    "jasmine-fix": "1.3.1"
+  },
+  "package-deps": [
+    "linter:2.0.0"
+  ],
+  "providedServices": {
+    "linter": {
+      "versions": {
+        "2.0.0": "provideLinter"
+      }
+    }
   },
   "renovate": {
     "extends": [
@@ -27,5 +52,26 @@
         "groupName": "ESLint packages"
       }
     ]
+  },
+  "eslintConfig": {
+    "extends": "airbnb-base",
+    "rules": {
+      "global-require": "off",
+      "import/no-unresolved": [
+        "error",
+        {
+          "ignore": [
+            "atom"
+          ]
+        }
+      ]
+    },
+    "globals": {
+      "atom": true
+    },
+    "env": {
+      "node": true,
+      "browser": true
+    }
   }
 }

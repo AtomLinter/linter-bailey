@@ -12,7 +12,7 @@ matrix:
 
 env:
   global:
-    APM_TEST_PACKAGES: "language-bailey"      
+    APM_TEST_PACKAGES: "language-bailey"
 
 ### Generic setup follows ###
 script:
@@ -34,7 +34,7 @@ git:
 
 sudo: false
 
-dist: trusty
+dist: xenial
 
 addons:
   apt:
@@ -43,3 +43,4 @@ addons:
     - fakeroot
     - git
     - libsecret-1-dev
+    - libgconf-2-4
